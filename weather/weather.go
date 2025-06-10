@@ -140,3 +140,54 @@ func GetWeather() Useful {
 
 	return u
 }
+
+func GetWeatherWithLatAndLong(lat float64, long float64) Useful {
+	w := Weather{}
+	u := Useful{}
+	url := fmt.Sprintf("https://api.openweathermap.org/data/3.0/onecall?lat=%.4f&lon=%.4f&appid=%s&units=imperial&exclude=minutely", lat, long, apiKey)
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Print(err)
+		return u
+	}
+	body, _ := io.ReadAll(resp.Body)
+
+	json.Unmarshal(body, &w)
+
+	u.Current = fmt.Sprintf("%.3f", w.Current.Temp)
+	u.High = fmt.Sprintf("%.3f", w.Daily[0].Temp.Max)
+	u.Low = fmt.Sprintf("%.3f", w.Daily[0].Temp.Min)
+	u.Percipitation = fmt.Sprintf("%.3f", w.Daily[0].Rain)
+	u.Weather = strings.Replace(w.Current.Weather[0].Description, " ", "-", -1)
+	fmt.Println(u)
+
+	return u
+}
+
+type LatAndLong struct {
+	Zip     string
+	Name    string
+	Lat     float64
+	Long    float64
+	Country string
+}
+
+func GetLatAndLong(zip string) LatAndLong {
+	l := LatAndLong{}
+	url := fmt.Sprintf("http://api.openweathermap.org/geo/1.0/zip?zip=%s&limit=5&appid=%s", zip, apiKey)
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Print(err)
+		return l
+	}
+	body, _ := io.ReadAll(resp.Body)
+
+	fmt.Println(string(body))
+
+	err = json.Unmarshal(body, &l)
+	if err != nil {
+		fmt.Println(err)
+		return l
+	}
+	return l
+}
