@@ -14,17 +14,18 @@ var e = env.New(".env")
 var apiKey = e.Get("API_KEY")
 
 const (
-	LAT  = 35.9956
-	LONG = -78.9002
+	LAT  = 35.9112
+	LONG = -78.9178
 )
 
 func SendWeather(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 	fmt.Printf("Recieved request at %s\n", now.String())
 	l := weather.GetLatAndLong("27713")
-	weather := weather.GetWeatherWithLatAndLong(l.Lat, l.Long)
+	weath := weather.GetWeatherWithLatAndLong(l.Lat, l.Long)
+	fmt.Println(weath)
 	fmt.Fprintf(w, "cur=%s high=%s low=%s weather=%s precip=%s",
-		weather.Current, weather.High, weather.Low, weather.Weather, weather.Percipitation)
+		weath.Current, weath.High, weath.Low, weath.Weather, weath.Percipitation)
 }
 
 func SendWeatherWithZip(w http.ResponseWriter, r *http.Request) {

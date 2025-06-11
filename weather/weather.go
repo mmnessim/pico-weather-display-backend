@@ -165,11 +165,11 @@ func GetWeatherWithLatAndLong(lat float64, long float64) Useful {
 }
 
 type LatAndLong struct {
-	Zip     string
-	Name    string
-	Lat     float64
-	Long    float64
-	Country string
+	Zip     string  `json:"zip"`
+	Name    string  `json:"name"`
+	Lat     float64 `json:"lat"`
+	Long    float64 `json:"lon"`
+	Country string  `json:"country"`
 }
 
 func GetLatAndLong(zip string) LatAndLong {
