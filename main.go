@@ -6,12 +6,7 @@ import (
 	"net/http"
 	"server/weather"
 	"time"
-
-	"github.com/mmnessim/go-env"
 )
-
-var e = env.New(".env")
-var apiKey = e.Get("API_KEY")
 
 const (
 	LAT  = 35.9112
