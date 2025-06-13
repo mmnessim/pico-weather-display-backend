@@ -18,7 +18,7 @@ const (
 	LONG = -78.9002
 )
 
-type Useful struct {
+type PicoWeather struct {
 	Current       string
 	High          string
 	Low           string
@@ -118,9 +118,9 @@ type Weather struct {
 	} `json:"daily"`
 }
 
-func GetWeather() Useful {
+func GetWeather() PicoWeather {
 	w := Weather{}
-	u := Useful{}
+	u := PicoWeather{}
 	url := fmt.Sprintf("https://api.openweathermap.org/data/3.0/onecall?lat=%f&lon=%f&appid=%s&units=imperial&exclude=minutely", LAT, LONG, apiKey)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -141,9 +141,9 @@ func GetWeather() Useful {
 	return u
 }
 
-func GetWeatherWithLatAndLong(lat float64, long float64) Useful {
+func GetWeatherWithLatAndLong(lat float64, long float64) PicoWeather {
 	w := Weather{}
-	u := Useful{}
+	u := PicoWeather{}
 	url := fmt.Sprintf("https://api.openweathermap.org/data/3.0/onecall?lat=%.4f&lon=%.4f&appid=%s&units=imperial&exclude=minutely", lat, long, apiKey)
 	resp, err := http.Get(url)
 	if err != nil {

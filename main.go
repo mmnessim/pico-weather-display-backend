@@ -8,11 +8,6 @@ import (
 	"time"
 )
 
-const (
-	LAT  = 35.9112
-	LONG = -78.9178
-)
-
 func SendWeather(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 	fmt.Printf("Recieved request at %s\n", now.String())
@@ -35,8 +30,6 @@ func SendWeatherWithZip(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	_ = weather.GetLatAndLong("27713")
-
 	weather.GetWeather()
 	http.HandleFunc("/", SendWeather)
 	//http.HandleFunc("/lat", GetLatAndLong)
