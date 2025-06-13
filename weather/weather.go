@@ -1,3 +1,8 @@
+/*
+This package fetches the weather data from the OpenWeatherMap API, resolves
+zip codes to latitude and longitude, and returns a struct with only the
+necessary fields for parsing by the http Handlers.
+*/
 package weather
 
 import (
@@ -13,11 +18,8 @@ import (
 var e = env.New(".env")
 var apiKey = e.Get("API_KEY")
 
-const (
-	LAT  = 35.9956
-	LONG = -78.9002
-)
-
+// PicoWeather contains only the fields that will eventually be sent to the Pico
+// for display.
 type PicoWeather struct {
 	Current       string
 	High          string
@@ -26,6 +28,9 @@ type PicoWeather struct {
 	Percipitation string
 }
 
+// Weather contains all fields in the API response. This struct was generated using
+// Matt Holt's helpful tool:
+// https://mholt.github.io/json-to-go/
 type Weather struct {
 	Lat            int    `json:"lat"`
 	Lon            int    `json:"lon"`
