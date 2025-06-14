@@ -20,6 +20,8 @@ func SendWeather(w http.ResponseWriter, r *http.Request) {
 		weath.Current, weath.High, weath.Low, weath.Weather, weath.Percipitation)
 }
 
+// Basically a prototype/reference for me as I gradually implement
+// this function will be deleted once zipcode is fully implemented
 func SendWeatherWithZip(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 	fmt.Printf("Recieved request at %s\n", now.String())

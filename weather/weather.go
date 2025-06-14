@@ -123,6 +123,7 @@ type Weather struct {
 	} `json:"daily"`
 }
 
+// This function uses hard coded lat and lon, so will be deleted
 /*
 func GetWeather() PicoWeather {
 	w := Weather{}
