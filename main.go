@@ -34,7 +34,7 @@ func SendWeatherWithZip(w http.ResponseWriter, r *http.Request) {
 func main() {
 	//_ = weather.GetLatAndLong("27713")
 
-	weather.GetWeather()
+	//weather.GetWeather()
 	http.HandleFunc("/", SendWeather)
 	//http.HandleFunc("/lat", GetLatAndLong)
 	fmt.Println("Server running on http://localhost:8080")

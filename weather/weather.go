@@ -123,6 +123,7 @@ type Weather struct {
 	} `json:"daily"`
 }
 
+/*
 func GetWeather() PicoWeather {
 	w := Weather{}
 	u := PicoWeather{}
@@ -145,6 +146,7 @@ func GetWeather() PicoWeather {
 
 	return u
 }
+*/
 
 func GetWeatherWithLatAndLong(lat float64, long float64) PicoWeather {
 	w := Weather{}
