@@ -1,3 +1,8 @@
+/*
+This package fetches the weather data from the OpenWeatherMap API, resolves
+zip codes to latitude and longitude, and returns a struct with only the
+necessary fields for parsing by the http Handlers.
+*/
 package weather
 
 import (
@@ -13,12 +18,9 @@ import (
 var e = env.New(".env")
 var apiKey = e.Get("API_KEY")
 
-const (
-	LAT  = 35.9956
-	LONG = -78.9002
-)
-
-type Useful struct {
+// PicoWeather contains only the fields that will eventually be sent to the Pico
+// for display.
+type PicoWeather struct {
 	Current       string
 	High          string
 	Low           string
@@ -26,6 +28,9 @@ type Useful struct {
 	Percipitation string
 }
 
+// Weather contains all fields in the API response. This struct was generated using
+// Matt Holt's helpful tool:
+// https://mholt.github.io/json-to-go/
 type Weather struct {
 	Lat            int    `json:"lat"`
 	Lon            int    `json:"lon"`
@@ -118,9 +123,9 @@ type Weather struct {
 	} `json:"daily"`
 }
 
-func GetWeather() Useful {
+func GetWeather() PicoWeather {
 	w := Weather{}
-	u := Useful{}
+	u := PicoWeather{}
 	url := fmt.Sprintf("https://api.openweathermap.org/data/3.0/onecall?lat=%f&lon=%f&appid=%s&units=imperial&exclude=minutely", LAT, LONG, apiKey)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -141,9 +146,9 @@ func GetWeather() Useful {
 	return u
 }
 
-func GetWeatherWithLatAndLong(lat float64, long float64) Useful {
+func GetWeatherWithLatAndLong(lat float64, long float64) PicoWeather {
 	w := Weather{}
-	u := Useful{}
+	u := PicoWeather{}
 	url := fmt.Sprintf("https://api.openweathermap.org/data/3.0/onecall?lat=%.4f&lon=%.4f&appid=%s&units=imperial&exclude=minutely", lat, long, apiKey)
 	resp, err := http.Get(url)
 	if err != nil {
